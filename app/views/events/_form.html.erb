@@ -1,0 +1,70 @@
+<%= f.input :name, :label => '活动名称', :help => "给你的活动取一个合适的名字，以便参与者可以一眼明白活动的形式、内容、范围等" %>
+
+<%= f.input :start_time, :label => '举办时间', :required => true do %>
+    <%= f.input_field :start_time, :class => "calchooser" %>
+    ~
+    <%= f.input_field :end_time, :class => "calchooser" %>
+<% end %>
+
+<%= f.input :time, :label => '举办地点', :required => true do %>
+    <%= f.input_field :province, :collection => provinces, :prompt => '省/直辖市/自治区' %>
+    &nbsp;&nbsp;
+    <%= f.input_field :city, :collection => cities[@event.province] || [], :prompt => '市/区' %>
+<% end %>
+
+<%= f.input :address, :label => '详细地址', :wrapper => 'append' do %>
+    <%= f.input_field :address, :placeholder => '街道/道路号/建筑名' %>
+    <!-- Button to trigger modal -->
+    <a href="#map_window" role="button" class="btn" data-toggle="modal" id="show_map"><i class="icon-map-marker"></i>
+      从地图中获取</a>
+
+    <!-- Modal -->
+    <div id="map_window" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">地图中位置</h3>
+      </div>
+      <div id="map_body" class="modal-body" style="width: 530px;height: 300px;overflow: hidden;margin:0;">
+      </div>
+      <div class="modal-footer">
+        <span id="map_address" style="border: dashed 1px #ccc; padding: 5px;"></span>
+        <a class="btn btn-primary" id="select_map">确定</a>
+        <a class="btn" data-dismiss="modal" aria-hidden="true">取消，我要手动输入</a>
+      </div>
+    </div>
+<% end %>
+
+<%= f.input :size, :label => '最大人数', :help => '免费会员举办活动人数最多为100' %>
+
+<%= f.input :category, :label => '活动类别', :collection => Event::CATEGORIES, :prompt => '请选择..' %>
+
+<%= f.input :host_id, :label => '活动举办方' do %>
+    <%= f.input_field :host_id, :label => false, :collection => hosts, :prompt => '请选择..' %>
+    <a href="<%= hosts_path %>">新增/编辑</a>
+<% end %>
+
+<%= f.input :tag_names, :label => '标签', :help => '标签有利于百度、谷歌搜索，请以逗号(,)或空格分隔多个标签', :input_html => {:class => 'tags'} %>
+
+<%= f.input :banner, :label => '活动海报', :wrapper => 'append', :help => '优秀的活动海报可以聚集更多的人气' do %>
+    <%= rich_picker_tag("event[banner]", @event.banner) %>
+<% end %>
+
+<%= f.input :detail, :label => '活动简介', :as => :textarea do %>
+    <%= rich_editor_tag("event[detail]", @event.detail) %>
+<% end %>
+
+<%= f.input :seller_name, :label => '售票人姓名' %>
+
+<%= f.input :seller_telephone, :label => '售票人电话' %>
+
+<%= f.input :seller_email, :label => '售票人邮件' %>
+
+<%= f.input :short_url, :label => '个性URL', :wrapper => 'prepend' do %>
+    <span class="add-on">http://www.huodongpai.com/</span>
+    <%= f.input_field :short_url, :label => false %>
+<% end %>
+
+<%= f.input :site_url, :label => '相关网址', :placeholder => '例如：http://www.yoursite.com' %>
+
+<%= f.input :notice, :label => '注意事项' %>
+

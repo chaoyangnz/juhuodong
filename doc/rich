@@ -1,0 +1,84 @@
+<form accept-charset="UTF-8" action="/events/18" class="formtastic event" id="edit_event_18" method="post" novalidate="novalidate"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="_method" type="hidden" value="put" /><input name="authenticity_token" type="hidden" value="5+ltt2KcpaUmSGT3fQ9rkEWCXfhlX+XcaGcKgoDy+Cs=" /></div>
+    <li class="rich_picker input optional stringish" id="event_tag_names_input"><label class=" label" for="event_tag_names">Tag names</label><input class="rich-picker" id="event_tag_names" name="event[tag_names]" type="text" />
+            <a href='/rich/files/' class='button'>
+              浏览或上传
+            </a>
+
+             </br></br><img src='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' class='rich-image-preview' style='max-width:100px; max-height:100px;' />
+
+            <script>
+              $(function(){
+                $('#event_tag_names_input a').click(function(e){
+                  e.preventDefault();
+                  assetPicker.showFinder('#event_tag_names',
+                  {
+                      "height":400,
+                      "stylesSet":[],
+                      "extraPlugins":"stylesheetparser,richfile,MediaEmbed,audio",
+                      "removePlugins":"scayt,menubutton,contextmenu,image,forms",
+                      "contentsCss":"/assets/rich/editor.css",
+                      "removeDialogTabs":"link:advanced;link:target",
+                      "startupOutlineBlocks":true,
+                      "forcePasteAsPlainText":true,
+                      "format_tags":"h3;p;pre",
+                      "toolbar":[
+                        ["Format","Styles"],
+                        ["Bold","Italic","-","NumberedList","BulletedList","Blockquote","-","richImage","-","Link","Unlink"],
+                        ["Source","ShowBlocks"]
+                      ],
+                      "language":"zh-CN",
+                      "richBrowserUrl":"/rich/files/",
+                      "uiColor":"#f4f4f4",
+                      "allowed_styles":["thumb","rich_thumb","original"],
+                      "default_style":"thumb",
+                      "insert_many":false,
+                      "allow_document_uploads":false,
+                      "allow_embeds":false,
+                      "placeholder_image":"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+                      "preview_size":"100px",
+                      "hidden_input":false
+                  })
+                });
+              });
+            </script>
+
+
+</li>
+<li class="rich input required" id="event_detail_input"><label class=" label" for="event_detail">Detail<abbr title="required">*</abbr></label><textarea id="event_detail" name="event[detail]" rows="20">
+&lt;p&gt;
+	的&lt;/p&gt;
+</textarea>
+<script>
+CKEDITOR.replace('event_detail', {
+    "height":"400px",
+    "stylesSet":[],
+    "extraPlugins":"stylesheetparser,richfile,MediaEmbed,audio",
+    "removePlugins":"scayt,menubutton,contextmenu,image,forms",
+    "contentsCss":"/assets/rich/editor.css",
+    "removeDialogTabs":"link:advanced;link:target",
+    "startupOutlineBlocks":true,
+    "forcePasteAsPlainText":true,
+    "format_tags":"h3;p;pre",
+    "toolbar":[
+        ["Format","Styles"],
+        ["Bold","Italic","-","NumberedList","BulletedList","Blockquote","-","richImage","-","Link","Unlink"],
+        ["Source","ShowBlocks"]
+    ],
+    "language":"zh-CN",
+    "richBrowserUrl":"/rich/files/",
+    "uiColor":"#f4f4f4",
+    "allowed_styles":["thumb","rich_thumb","original"],
+    "default_style":"thumb",
+    "insert_many":false,
+    "allow_document_uploads":false,
+    "allow_embeds":false,
+    "placeholder_image":"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+    "preview_size":"100px",
+    "hidden_input":false,
+    "width":"76%"
+});
+
+</script>
+
+</li>
+</form>

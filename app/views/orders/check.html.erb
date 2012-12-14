@@ -1,0 +1,80 @@
+
+
+<%= simple_form_for :order, :url => {:action => :pay }, :html => { :class => 'form-horizontal' } do |f| %>
+
+    <!-- 订单隐藏表单 -->
+    <%= f.input_field :subject, :as => :hidden %>
+    <%= f.input_field :body, :as => :hidden %>
+    <%= f.input_field :show_url, :as => :hidden %>
+    <%= f.input_field :total_fee, :as => :hidden %>
+
+    <fieldset>
+      <legend>活动概要</legend>
+      <dl>
+        <dt>活动主题</dt>
+        <dd><%= @event.name %></dd>
+        <dt>举办时间</dt>
+        <dd><%= @event.start_time + ' ~ ' + @event.end_time %></dd>
+        <dt>举办地点</dt>
+        <dd><%= @event.province + " " + @event.city + " " + @event.address %></dd>
+      </dl>
+    </fieldset>
+
+    <fieldset>
+      <legend>订单明细</legend>
+
+      <table class="table table-striped">
+        <caption><h4>订购<a href="<%= @order.show_url %>"><%= @order.subject %></a>的票券</h4></caption>
+
+        <thead>
+        <tr>
+          <th>票种</th>
+          <th>原价</th>
+          <th>售价</th>
+          <th>订购数量</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+
+        <% @order.order_items.each do |order_item| %>
+            <!-- 订单项隐藏表单 -->
+            <%= f.simple_fields_for 'order_items_attributes[]', order_item do |ff| %>
+                <%= ff.input_field :ticket_id, :as => :hidden %>
+                <%= ff.input_field :price, :as => :hidden %>
+                <%= ff.input_field :quantity, :as => :hidden %>
+            <% end %>
+            <tr>
+              <td><%= order_item.ticket.name %></td>
+              <td style="text-decoration: line-through;"><%= order_item.ticket.offline_price %></td>
+              <td><%= order_item.ticket.online_price %></td>
+              <td><%= order_item.quantity %></td>
+            </tr>
+        <% end %>
+        <tr>
+          <td colspan="3" style="text-align: right;">总计</td>
+          <td>
+            <%= @order.total_fee %>
+
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+
+    <fieldset>
+      <legend>购票信息</legend>
+      <%= f.input :mobile_phone, :label => '手机' %>
+
+      <%= f.input :realname, :label => '姓名' %>
+
+      <%= f.input :email, :label => 'Email' %>
+
+    </fieldset>
+
+  <div class="form-actions">
+    <input type="submit" value="确认并支付" class="btn btn-success btn-large">
+  </div>
+<% end %>
+
+

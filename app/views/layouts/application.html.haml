@@ -1,0 +1,68 @@
+!!! 5
+%html
+  %head
+    %title Huodong
+    = stylesheet_link_tag    "application", :media => "all"
+    = yield :stylesheets
+    = javascript_include_tag "modernizr"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    /[if lt IE 9]
+      = stylesheet_link_tag    "application.ie6"
+      %p
+        Your browser is
+        %em ancient!
+        %a(href="http://browsehappy.com/")Upgrade to a different browser
+        or
+        %a(href="http://www.google.com/chromeframe/?redirect=true")install Google Chrome Frame
+        to experience this site.
+    %header.navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container
+          %button.btn.btn-navbar(type="button" data-toggle="collapse" data-target=".nav-collapse")
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.brand(href="/")
+            聚活动
+            %small
+              %sup beta
+          .nav-collapse.collapse
+            %ul.nav
+              %li
+                %a(href="/events/new") 办活动
+              %li
+                %a(href="/event/find") 找活动
+            %ul.nav.pull-right
+              %li.divider-vertical
+              - if user_signed_in? == true
+                %li
+                  %a(href="/users/profile")= current_user[:email].sub /@.*/, ''
+                %li
+                  %a(href="/users/sign_out" data-method="delete" title="注销")注销
+              - else
+                %li
+                  %a(href="/users/sign_in")登入
+                %li
+                  %a(href="/users/sign_up")注册
+
+
+    .container.master-container(role="main" style="margin-top: 60px")
+      %ul.breadcrumb
+        = yield :breadcrumb
+      - if alert
+        .alert.alert-block.alert-error
+          %button.close(type="button" data-demiss='alert') &times;
+          = alert
+      - if notice
+        .alert.alert-block.alert-info
+          %button.close(type="button" data-demiss='alert') &times;
+          = notice
+      = yield
+    #footer.container
+      %p Copyright 2012 Hadue LTD,.
+    = yield :javascripts
+
+
+

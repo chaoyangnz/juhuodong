@@ -1,0 +1,31 @@
+<% content_for :breadcrumb do %>
+    <li><%= link_to "首页", root_path %> <span class="divider">&raquo;</span></li>
+    <li><%= link_to "活动管理", events_path %> <span class="divider">&raquo;</span></li>
+    <li class="active">活动基本信息</li>
+<% end %>
+
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="<%= edit_event_path @event %>">活动基本信息</a></li>
+  <li><a href="<%= event_tickets_path @event %>">票务设定</a></li>
+  <li><a href="<%= event_fields_path @event %>">报名表设计</a></li>
+</ul>
+
+<div id="event" class="row">
+  <%= simple_form_for @event, :validate => false, :html => {:class => 'form-horizontal'} do |f| %>
+      <fieldset>
+        <legend>活动基本信息</legend>
+        <%= render 'form', :f => f %>
+
+      </fieldset>
+
+      <div class="form-actions">
+        <% if @event.draft? %>
+            <%= submit_tag '保存草稿', :name => 'action_save_draft', :class => 'btn btn-primary' %>
+        <% end %>
+        <%= submit_tag '保存并发布', :name => 'action_publish', :class => 'btn btn-primary' %>
+        <%= submit_tag '取消', :type => :reset, :class => "btn btn-danger" %>
+      </div>
+
+
+  <% end %>
+</div>

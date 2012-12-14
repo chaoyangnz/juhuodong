@@ -1,0 +1,65 @@
+<% content_for :stylesheets do %>
+    <style type="text/css">
+
+    </style>
+<% end %>
+
+<% content_for :javascripts do %>
+    <script type="text/javascript">
+
+        $(function() {
+
+        })
+    </script>
+<% end %>
+
+<% content_for :breadcrumb do %>
+    <li><%= link_to "首页", root_path %> <span class="divider">&raquo;</span></li>
+    <li class="active">活动管理</li>
+<% end %>
+
+<div class="btn-group" data-toggle="buttons-radio">
+  <button class="btn">上架</button>
+  <button class="btn">草稿</button>
+  <button class="btn">完成</button>
+  <button class="btn">废弃</button>
+</div>
+
+<a href="<%= new_event_path %>" class="btn btn-success">发布新活动</a>
+
+<table class="table table-striped">
+    <caption></caption>
+    <thead>
+        <tr>
+          <th>活动名称</th>
+          <th>活动类型</th>
+          <th>举办日期</th>
+          <th>举办地点</th>
+          <th>报名数</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% if @events.blank? %>
+        <tr placeholder>
+          <td colspan="7">尚未有任何发布的活动</td>
+        </tr>
+      <% end %>
+      <% @events.each do |event| %>
+        <tr>
+          <td><%= event.name %></td>
+          <td><%= event.category %></td>
+          <td><%= event.start_time + ' ~ ' + event.end_time %></td>
+          <td><%= event.province  + event.city + ' ' + event.address %></td>
+          <td><%= event.status %></td>
+          <td></td>
+          <td>
+            <a href="<%= event_path(event) %>" data-method="DELETE" class="btn btn-danger btn-mini">删除</a>
+            <a href="<%= edit_event_path(event) %>" class="btn btn-mini">编辑</a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>
+

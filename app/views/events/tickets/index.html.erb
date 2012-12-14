@@ -1,0 +1,80 @@
+<% content_for :stylesheets do %>
+    <style type="text/css">
+
+    </style>
+<% end %>
+
+<% content_for :javascripts do %>
+    <script type="text/javascript">
+
+           $(function() {
+                // 取消保存
+                $("#cancel_ticket").click(function(e) {
+                    e.preventDefault();
+                    $("#ticket_table").show()
+                    $("#ticket_form").hide()
+                })
+
+            })
+    </script>
+<% end %>
+
+<% content_for :breadcrumb do %>
+    <li><%= link_to "首页", root_path %> <span class="divider">&raquo;</span></li>
+    <li><%= link_to "活动管理", events_path %> <span class="divider">&raquo;</span></li>
+    <li class="active">票券设定</li>
+<% end %>
+
+<ul class="nav nav-tabs" id="myTab">
+  <li><a href="<%= edit_event_path @event %>">活动基本信息</a></li>
+  <li class="active"><a href="<%= event_tickets_path @event %>">票务设定</a></li>
+  <li><a href="<%= event_fields_path @event %>">报名表设计</a></li>
+</ul>
+
+
+<div class="row">
+    <table id="ticket_table" class="table table-striped">
+        <caption></caption>
+        <thead>
+        <tr>
+          <th>票种</th>
+          <th>套票</th>
+          <th>票价</th>
+          <th>数量</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+            <% if @tickets.blank? %>
+            <tr placeholder>
+              <td colspan="5">尚未建立任何票种! 单纯免费报名的活动可以不添加票券</td>
+            </tr>
+            <% else %>
+            <% @tickets.each do |ticket| %>
+            <tr>
+              <td><%= ticket.name %></td>
+              <td><%= ticket.package %></td>
+              <td><%= ticket.online_price %></td>
+              <td><%= ticket.capacity %></td>
+              <td>
+                <a href="<%= event_ticket_path(@event, ticket) %>" data-method="DELETE" class="btn btn-danger btn-mini" data-confirm="你确定要删除该票种吗？">删除</a>
+                <a href="<%= edit_event_ticket_path(@event, ticket) %>" data-method="GET" class="btn btn-mini">编辑</a>
+              </td>
+            </tr>
+            <% end %>
+            <% end %>
+
+        </tbody>
+        <tfoot>
+            <tr>
+              <td colspan="6">
+                <a href="<%= new_event_ticket_path(@event) %>" class="btn btn-info">增加票种</a>
+              </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="form-actions">
+      <a class="btn btn-primary" href="<%= event_fields_path @event %>">下一步&raquo;</a>
+    </div>
+</div>

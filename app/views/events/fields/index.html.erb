@@ -1,0 +1,134 @@
+<% content_for :stylesheets do %>
+    <%= stylesheet_link_tag 'plugins/jquery.calchooser' %>
+    <%= stylesheet_link_tag 'plugins/jquery.formbuilder' %>
+    <%= stylesheet_link_tag 'plugins/jquery.tagit' %>
+    <style type="text/css">
+
+    </style>
+<% end %>
+
+<% content_for :javascripts do %>
+    <script type="text/javascript">
+        $(function() {
+            function append_field(type) {
+                var field_id = "new" + new Date().getMilliseconds()
+                var html = '<div class="field" id="field_'+ field_id + ' style="border: 1px solid">'
+                html += '<input type="hidden" name="fields[' + field_id + '][maintype]" value="' + type + '">'
+
+                html += '<label>字段名称</label>'
+                html += '<input type="text" name="fields[' + field_id + '][name]">'
+                html += '<label><input type="checkbox" name="fields[' + field_id + '][is_required]">是否必输</label>'
+
+                if(type == 'select') {
+                    html += '<label><input type="checkbox" name="fields[' + field_id + '][multiple]">可否多选</label>'
+                }
+                if(type == 'radio' || type == 'checkbox' || type == 'select') {
+                    html += '<div class="options">'
+                    html += new_option(field_id, type, 0)
+                    html += '</div>'
+                    html += '<a class="btn add_option_btn" for_type="' + type + '" for_id="' + field_id + '">增加选项</a>'
+                }
+
+                html += '</div>'
+                $(html).appendTo($('form .fields'))
+            }
+
+            function new_option(field_id, type, index) {
+                var html = '<div class="option">'
+                html += '<input type="'+ (type == 'select' ? 'checkbox' : type) + '" name="fields[' + field_id + '][options][' + index + '][checked]" value="true">'
+                html += '<input type="text" name="fields[' + field_id + '][options][' + index + '][value]">'
+                html += '<a class="btn del_option_btn">删除</a>'
+                html += '</div>'
+
+                return html
+            }
+
+            $('a.del_option_btn').live('click', function() {
+                $(this).closest('.option').remove()
+            })
+
+            $('a.add_option_btn').live('click', function() {
+                var options = $(this).parent('.field').find('.options')
+                var type = $(this).attr('for_type')
+                var field_id = $(this).attr('for_id')
+                var index = options.children('.option').length
+
+                $(new_option(field_id, type, index)).appendTo(options)
+            })
+
+            $('form .btn-group .btn').click(function() {
+                var type = $(this).attr('for')
+                append_field(type)
+            })
+        })
+    </script>
+<% end %>
+
+<% content_for :breadcrumb do %>
+    <li><%= link_to "首页", root_path %> <span class="divider">&raquo;</span></li>
+    <li><%= link_to "活动管理", events_path %> <span class="divider">&raquo;</span></li>
+    <li class="active">设计报名表</li>
+<% end %>
+
+<ul class="nav nav-tabs" id="myTab">
+  <li><a href="<%= edit_event_path @event %>">活动基本信息</a></li>
+  <li><a href="<%= event_tickets_path @event %>">票务设定</a></li>
+  <li class="active"><a href="<%= event_fields_path @event %>">报名表设计</a></li>
+</ul>
+
+<div class="row">
+
+  <form method="post" action="<%= event_fields_path @event %>" data-remote="true" data-method="post" class="form-horizontal">
+
+    <fieldset>
+      <legend>报名表设计（非必填）</legend>
+      <div class="btn-group frmb-control">
+        <a class="btn" for="text">单行文本</a>
+        <a class="btn" for="textarea">多行文本</a>
+        <a class="btn" for="radio">单选框</a>
+        <a class="btn" for="checkbox">复选框</a>
+        <a class="btn" for="select">下拉列表</a>
+      </div>
+
+      <div class="fields">
+      <% @fields.each_with_index do |field, index| %>
+        <div id="field_<%= field.id %>" class="field" style="border: 1px solid">
+
+            <label>字段名称</label>
+            <input type="text" name="fields[<%= field.id %>][name]">
+            <label>
+              <input type="checkbox" name="fields[<%= field.id %>][is_required]">是否必输
+            </label>
+
+            <% if field.maintype == 'select' %>
+              <input type="checkbox" name="fields[<%= field.id %>][multiple]">
+            <% end %>
+
+            <% if field.maintype == 'radio' or field.maintype == 'checkbox' or field.maintype == 'select' %>
+              <div class="options">
+              <% field.options.each_with_index do |option, option_index| %>
+                  <div class="option">
+                  <input type="<%= field.maintype %>" name="fields[<%= field.id %>][options][<%= option_index %>][checked]" <%= 'checked' unless option['checked'].nil? %>>
+                  <input type="text" name="fields[<%= field.id %>][options][<%= option_index %>][value]" value="<%= option['value'] %>">
+                  <a href="">删除</a>
+                  </div>
+              <% end %>
+              </div>
+              <a href="">增加选项</a>
+            <% end %>
+
+        </div>
+      <% end %>
+
+      </div>
+    </fieldset>
+
+    <div>
+      <button type="submit" id="save_fields_form" class="btn btn-primary">保存</button>
+      <a href="#" class="btn">取消</a>
+    </div>
+  </form>
+
+
+
+</div>

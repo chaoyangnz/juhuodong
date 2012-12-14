@@ -1,0 +1,14 @@
+// 省/市联动
+var regions = <%= cities.to_json.html_safe %>
+
+$('select[name*="[province]"]').change(function() {
+    var that = $(this)
+    $('select[name*="[city]"] option[value!=""]').remove()
+
+    var cities = regions[that.val()]
+    for(var i=0; i < cities.length; ++i) {
+        var city = cities[i]
+        console.log(city )
+        $('<option value="' + city + '">' + city + '</option>').appendTo($('select[name*="[city]"]'))
+    }
+})

@@ -1,0 +1,21 @@
+<% # 功能： 1. 表单赋值 2. 错误显示 %>
+
+<% if ! resource.new_record? %>
+    <% resource.attribute_names.each do |attr| %>
+        $('form :input[name*="[<%= attr %>]"]').val(['<%= escape_javascript(resource.read_attribute(attr).to_s) %>']).trigger('change')
+    <% end %>
+<% end %>
+
+<% if resource.errors.any? %>
+    var $form = $("form")
+    var field_errors = <%= resource.errors.to_json.html_safe %>
+
+    for(var prop in field_errors) {
+        var $control = $form.find('[name*="['+ prop +']"]')
+        $control.closest('.control-group').addClass('error')
+        $control.closest('.controls').append($('<span class="help-inline form-field-error"><i class="icon-warning-sign"></i> ' + field_errors[prop] + '</span>'))
+    }
+
+<% end %>
+
+

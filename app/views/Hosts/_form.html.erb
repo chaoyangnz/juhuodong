@@ -1,0 +1,40 @@
+<% content_for :javascripts do %>
+   <script type="text/javascript">
+     $(function() {
+         <%= render 'shared/regions.js', :resource => @host %>
+     })
+   </script>
+<% end %>
+
+<%= simple_form_for @host, :html => { :class => 'form-horizontal'} do |f| %>
+    <fieldset>
+        <legend>举办方管理</legend>
+
+        <%= f.input :name, :label => '正式名称' %>
+
+        <%= f.input :detail, :label => '简要介绍' %>
+
+        <%= f.input :telephone, :label => '联系电话' %>
+
+        <%= f.input :time, :label => '办公地点' do %>
+          <%= f.input_field :province, :collection => provinces, :prompt => '省/直辖市/自治区' %>
+          &nbsp;&nbsp;
+          <%= f.input_field :city, :collection => cities[@host.province] || [], :prompt => '市/区' %>
+        <% end %>
+
+        <%= f.input :address, :label => '详细地址', :placeholder => '街道/道路号/建筑名' %>
+
+        <%= f.input :address, :label => '官方网站' %>
+
+        <%= f.input :email, :label => 'Email' %>
+
+        <%= f.input :msn, :label => 'MSN' %>
+
+        <%= f.input :qq, :label => 'QQ' %>
+
+        <div class="form-actions">
+        <%= f.button :submit, :class => 'btn-primary', :value=> '保存' %>
+        <a id="cancel_button" class="btn" href="<%= hosts_path %>">取消</a>
+        </div>
+    </fieldset>
+<% end %>

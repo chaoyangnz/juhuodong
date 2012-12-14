@@ -1,0 +1,24 @@
+<%= f.input :name, :label => '票种名称' %>
+
+<%= f.input :package, :label => '套票', :collection => ['单人票', '双人票', '三人票'], :prompt => '请选择..' %>
+
+<%= f.input :type, :label => '是否收费', :as => :radio_buttons, :collection => [['收费', 'ChargeTicket'], ['免费', 'FreeTicket']] %>
+
+<%= f.input :capacity, :label => '票券总数' %>
+
+<%= f.input :online_price, :label => '网上票价', :wrapper_html => {:class => ('hide' unless @ticket.charge?)} %>
+
+<%= f.input :offline_price, :label => '现场票价', :wrapper_html => {:class => ('hide' unless @ticket.charge?)} %>
+
+<%= f.input :time, :label => '售票起止时间' do %>
+    <%= f.input_field :sale_start_time, :class => "calchooser" %>
+    ~
+    <%= f.input_field :sale_end_time, :class => "calchooser" %>
+<% end %>
+
+<%= f.input :time, :label => '每订单限量' do %>
+    最少 <%= f.input_field :order_min, :class => 'span1' %>
+    ~
+    最多 <%= f.input_field :order_max, :class => 'span1' %>
+<% end %>
+

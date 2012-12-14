@@ -1,0 +1,62 @@
+<% content_for :stylesheets do %>
+    <style type="text/css">
+
+    </style>
+<% end %>
+
+<% content_for :javascripts do %>
+    <script type="text/javascript">
+        $(function() {
+
+        })
+    </script>
+<% end %>
+
+<% content_for :breadcrumb do %>
+    <li><%= link_to "首页", root_path %> <span class="divider">&raquo;</span></li>
+    <li class="active">举办方管理</li>
+<% end %>
+
+<div class="row">
+
+      <table id="host_table" class="table table-striped span12">
+        <caption></caption>
+        <thead>
+        <tr>
+          <th>正式名称</th>
+          <th>联系电话</th>
+          <th>办公地点</th>
+          <th>详细地址</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% if @hosts.blank? %>
+            <tr placeholder>
+              <td colspan="6">尚未创建任何举办方信息</td>
+            </tr>
+        <% end %>
+        <% @hosts.each do |host| %>
+            <tr>
+              <td><%= host.name %></td>
+              <td><%= host.telephone %></td>
+              <td><%= host.province + '-' + host.city %></td>
+              <td><%= host.address %></td>
+              <td>
+                <a href="<%= host_path(host) %>" data-method="DELETE" class="btn btn-danger btn-mini">删除</a>
+                <a href="<%= edit_host_path(host) %>" class="btn btn-mini">编辑</a>
+              </td>
+            </tr>
+        <% end %>
+
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="6">
+            <a href="<%= new_host_path %>" data-method="GET" class="btn btn-info">增加票种</a>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+
+</div>

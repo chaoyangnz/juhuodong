@@ -1,0 +1,171 @@
+<% content_for :breadcrumb do %>
+    <li><%= link_to "首页", root_path %> <span class="divider">&raquo;</span></li>
+    <li><%= link_to "活动管理", events_path %> <span class="divider">&raquo;</span></li>
+    <li class="active">创建活动</li>
+<% end %>
+
+<% content_for :javascripts do %>
+    <%= javascript_include_tag 'http://api.map.baidu.com/api?v=1.4' %>
+    <%= javascript_include_tag 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js' %>
+    <script type="text/javascript">
+        $(function () {
+            <%= render 'shared/regions.js', :resource => @event %>
+            // 标签控件
+            $('input.tags').tagit({
+//        availableTags: sampleTags,
+                // This will make Tag-it submit a single form value, as a comma-delimited field.
+                singleField:true//,
+//        singleFieldNode: $('input#tags')
+            });
+
+            // 地图选择地址
+//            var map = new BMap.Map("map_body");
+//            var gc = new BMap.Geocoder();
+//            $('#show_map').click(function() {
+//                var city = $('select[name="event[city]"]').val()
+//                city = city != '' ? city : (remote_ip_info ? remote_ip_info['city'] : '上海')
+//
+//                map.centerAndZoom(city,15);
+//            })
+//            map.addEventListener("click", function(e){
+//                var pt = e.point;
+//                map.clearOverlays()
+//                var marker = new BMap.Marker(pt);  // 创建标注
+//                map.addOverlay(marker);              // 将标注添加到地图中
+//
+//                gc.getLocation(pt, function(rs){
+//                    var addComp = rs.addressComponents;
+//
+//                    $("#map_address").html(/*addComp.province + ", " + addComp.city + ", " + */addComp.district + "" + addComp.street + "" + addComp.streetNumber);
+//                });
+//            });
+//            $('a#select_map').click(function() {
+//                $('input[name="event[address]"]').val($("#map_address").html())
+//                $('#map_window').modal('hide')
+//            })
+
+            /*---------------------票券设定---------------------------------*/
+            function build_ticket_row(params) {
+                var prefix = 'event[tickets_attributes][]'
+                var html = "<tr>"
+                html += '<td>' + params.name + '</td>'
+                html += '<td>' + params.package + '</td>'
+                html += '<td>' + params.online_price + '</td>'
+                html += '<td>' + params.capacity + '</td>'
+                html += '<td><a class="edit_ticket_button btn btn-mini">编辑</a><a class="delete_ticket_button btn btn-mini">删除</a></td>'
+                for (var prop in params) {
+                    var name = prefix + '[' + prop + ']'
+                    var value = params[prop]
+                    html += '<input type="hidden" name="' + name + '" value="' + value + '">'
+                }
+                html += '</tr>'
+
+                return html
+            }
+
+            $('#save_ticket_button').click(function () {
+                var that = $(this)
+                var params = $('#ticket_form').serializeJSON()
+
+                var row = build_ticket_row(params.ticket)
+
+                if ($('#ticket_form').attr('for') == 'new') {
+                    $('#ticket_table tbody').append($(row))
+                } else {
+                    var index = $('#ticket_form').attr('for')
+                    $('#ticket_table tbody tr:eq(' + index + ')').replaceWith($(row))
+                }
+
+
+                $('#ticket_form').hide()
+                $('#ticket_table').show()
+            })
+
+            $('#cancel_ticket_button').click(function () {
+                $('#ticket_form').hide()
+                $('#ticket_table').show()
+            })
+
+            $('#new_ticket_button').click(function () {
+                $('#ticket_form').attr('for', 'new')
+                $('#ticket_form :input').val(['']) //clear
+
+                $('#ticket_table').hide()
+                $('#ticket_form').show()
+            })
+
+            $('.edit_ticket_button').live('click', function () {
+                var that = $(this)
+
+                var index = $('#ticket_table tbody tr').index(that.closest('tr'))
+                $('#ticket_form').attr('for', index)
+                var params = that.closest('tr').serializeJSON()
+                params = params.event.tickets_attributes[0]
+                for (var prop in params) {
+                    var name = 'ticket[' + prop + ']'
+                    var value = params[prop]
+                    $('#ticket_form :input[name="' + name + '"]').val([value])
+                }
+
+                $('#ticket_table').hide()
+                $('#ticket_form').show()
+            })
+
+            $('.delete_ticket_button').live('click', function () {
+                var that = $(this)
+                that.closest('tr').remove()
+            })
+        })
+    </script>
+<% end %>
+
+<div class="row">
+
+  <%= simple_form_for @event, :validate => false, :html => {:class => 'form-horizontal'} do |f| %>
+      <fieldset>
+        <legend>活动基本信息</legend>
+        <%= render 'form', :f => f %>
+      </fieldset>
+
+      <fieldset>
+        <legend>票券设定</legend>
+        <table id="ticket_table" class="table table-striped">
+          <caption></caption>
+          <thead>
+          <tr>
+            <th>票种</th>
+            <th>套票</th>
+            <th>票价</th>
+            <th>数量</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          </tbody>
+          <tfoot>
+          <tr>
+            <td colspan="6">
+              <a class="btn btn-info" id="new_ticket_button">增加票种</a>
+            </td>
+          </tr>
+          </tfoot>
+        </table>
+        <div id="ticket_form" class="hide well">
+          <%= simple_fields_for @ticket do |ff| %>
+              <%= render 'events/tickets/form', :f => ff %>
+          <% end %>
+          <a class="btn btn-info" id="save_ticket_button">保存</a>
+          <a class="btn" id="cancel_ticket_button">取消</a>
+        </div>
+      </fieldset>
+
+      <div class="form-actions">
+        <%= submit_tag '保存草稿', :name => 'action_save_draft', :class => 'btn btn-primary' %>
+        <%= submit_tag '保存并发布', :name => 'action_publish', :class => 'btn btn-primary' %>
+        <%= submit_tag '取消', :type => :reset, :class => "btn btn-danger" %>
+      </div>
+
+
+  <% end %>
+
+</div>

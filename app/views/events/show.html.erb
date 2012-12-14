@@ -1,0 +1,55 @@
+<div class="span8">
+  <img src="<%= @event.banner %>">
+  <form action="/orders/check" method="post">
+  <input type="hidden" name="event_id" value="<%= @event.id %>" >
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>票种</th>
+      <th>售票时间</th>
+      <th>原价</th>
+      <th>售价</th>
+      <th>剩余票数</th>
+      <th>订购数量</th>
+    </tr>
+    </thead>
+    <tbody>
+      <input type="hidden" name="event_id" value="<%= @event.id %>">
+      <% @event.tickets.each do |ticket| %>
+        <tr>
+            <td><%= ticket.name + "(" + ticket.package + ")" %></td>
+            <td>截止<%= ticket.sale_end_time.blank? ? ticket.sale_end_time : ticket.event.end_time  %></td>
+            <td style="text-decoration: underline;"><%= ticket.offline_price %></td>
+            <td><%= ticket.online_price %></td>
+            <td><%= ticket.available %></td>
+            <td>
+              <input type="hidden" name="order_items[][ticket_id]" class="span1" value="<%= ticket.id %>">
+              <input type="hidden" name="order_items[][price]" class="span1" value="<%= ticket.online_price %>">
+              <input type="number" name="order_items[][quantity]" class="span1" value="0">
+            </td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="6">
+        <input type="submit" value="我要购票" class="btn btn-success pull-right" >
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+  </form>
+</div>
+
+<%= simple_form_for @event.tickets.all, :url => {:controller => :orders, :action => :check } do |f| %>
+    <%= f.input :name %>
+<% end %>
+
+<div class="span3">
+  <h2>活动信息</h2>
+  <ul>
+    <li>举办城市：<%= @event.province %> <%= @event.city %></li>
+    <li>举办地点：<%= @event.address %></li>
+    <li>举办时间：<%= @event.start_time + " ~ " + @event.end_time %></li>
+  </ul>
+</div>
