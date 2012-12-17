@@ -4,46 +4,37 @@ class OrdersController < ApplicationController
   skip_filter :authenticate_user!
 
   # 核对订单
-  def check
+  def review
     @event = Event.find(params[:event_id])
 
-    @order = Order.new
-    params[:order_items].each do |item|
-        @order.order_items.build(item) #<< Ticket.find(item[:ticket_id]).order_items.build(item)
-    end
+    @order = Order.new(params[:order])
     @order.subject = @event.name
     @order.body = "[#{@event.name}]" + @order.order_items.map { |item| "#{item.ticket.name} #{item.quantity}张 × #{item.price}元" }.join(',')
     @order.show_url = event_path(@event)
-    @order.total_fee = @order.order_items.sum { |item| item.ticket.online_price.to_f * item.quantity.to_i }
+    @order.sum_up
   end
 
-  # 订单支付
-  def pay
+  # 订单生成/支付
+  def create
     @order = Order.new(params[:order])
-    @order.status = 'unpaid'
+    @order.status = @order.need_pay? ? 'unpaid' : 'paid-free'
 
-    if(@order.save)
-      @order.order_items.each do |order_item|
-        # 将这些票暂时冻结
-        order_item.ticket.available -= order_item.quantity
-        order_item.ticket.reserved += order_item.quantity
-        order_item.ticket.save
-
-        # 保存订单项
-        order_item.save
+    if @order.save
+      if @order.need_pay?
+        alipay_params = {
+            'out_trade_no'    => @order[:order_no],
+            'subject'         => @order[:subject],
+            'total_fee'       => @order[:total_fee],
+            'body'            => @order[:body],
+            'show_url'        => @order[:show_url],
+            'exter_invoke_ip' => request.remote_ip
+            #'anti_phishing_key'	  => anti_phishing_key, # 防钓鱼时间戳
+            # 'extra_common_param'  =>   #选填
+        }
+        render :inline => ::Payment::Alipay.direct_pay(alipay_params)
+      else
+        redirect_to @order.show_url, :notice => '您订购的票已经出票，请注意查收手机和Email'
       end
-
-      render :inline => ::Payment::Alipay.direct_pay({
-                                                         'out_trade_no'	      => @order[:order_no],
-                                                         'subject'	          => @order[:subject],
-                                                         'total_fee'	        => @order[:total_fee],
-                                                         'body'	              => @order[:body],
-                                                         'show_url'	          => @order[:show_url],
-                                                         #   'anti_phishing_key'	  => anti_phishing_key, # 防钓鱼时间戳
-                                                         'exter_invoke_ip'	  => request.remote_ip
-                                                         #   'extra_common_param'  =>   #选填
-                                                     })
-
     else
       render 'edit'
     end
@@ -112,7 +103,7 @@ class OrdersController < ApplicationController
       #交易状态
       trade_status = params['trade_status'];
 
-      if(trade_status == "TRADE_FINISHED")
+      if (trade_status == "TRADE_FINISHED")
         #判断该笔订单是否在商户网站中已经做过处理
         #如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
         #如果有做过处理，不执行商户的业务程序

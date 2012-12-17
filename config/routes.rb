@@ -19,13 +19,13 @@ Huodong::Application.routes.draw do
 
   resources :hosts
 
-  post 'orders/check' => 'orders#check'
-
-  post 'orders/pay' => 'orders#pay'
-
-  get 'orders/pay_return' => 'orders#pay_return'
-
-  post 'orders/pay_notify' => 'orders#pay_notify'
+  resources :orders do
+    collection do
+      post 'review'
+      get 'pay_return'
+      post 'pay_notify'
+    end
+  end
 
 
   # Sample of regular route:

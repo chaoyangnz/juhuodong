@@ -1,6 +1,6 @@
 
 
-<%= simple_form_for :order, :url => {:action => :pay }, :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for :order, :url => {:action => :create }, :html => { :class => 'form-horizontal' } do |f| %>
 
     <!-- 订单隐藏表单 -->
     <%= f.input_field :subject, :as => :hidden %>
@@ -73,7 +73,7 @@
     </fieldset>
 
   <div class="form-actions">
-    <input type="submit" value="确认并支付" class="btn btn-success btn-large">
+    <input type="submit" value="<%= @order.need_pay? ? '确认并支付' : '确认并出票' %>" class="btn btn-success btn-large">
   </div>
 <% end %>
 

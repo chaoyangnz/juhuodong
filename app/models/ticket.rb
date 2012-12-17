@@ -21,6 +21,7 @@ class Ticket < ActiveRecord::Base
   #------------------------------------------------------
   belongs_to :event
   has_many :order_items
+  has_many :etickets
 
   #-----------------------------------------------------
   # Mass assignments

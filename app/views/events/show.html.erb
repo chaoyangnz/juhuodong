@@ -23,9 +23,9 @@
             <td><%= ticket.online_price %></td>
             <td><%= ticket.available %></td>
             <td>
-              <input type="hidden" name="order_items[][ticket_id]" class="span1" value="<%= ticket.id %>">
-              <input type="hidden" name="order_items[][price]" class="span1" value="<%= ticket.online_price %>">
-              <input type="number" name="order_items[][quantity]" class="span1" value="0">
+              <input type="hidden" name="order[order_items_attributes][][ticket_id]" class="span1" value="<%= ticket.id %>">
+              <input type="hidden" name="order[order_items_attributes][][price]" class="span1" value="<%= ticket.online_price %>">
+              <input type="number" name="order[order_items_attributes][][quantity]" class="span1" value="0">
             </td>
         </tr>
       <% end %>

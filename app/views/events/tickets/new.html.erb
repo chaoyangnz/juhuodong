@@ -13,7 +13,7 @@
 <%= simple_form_for [@event, @ticket], :html => {:class => 'form-horizontal'} do |f| %>
     <fieldset>
       <legend>票券设定(非必填)</legend>
-      <%= render 'form' %>
+      <%= render 'form', :f => f %>
       <div class="form-actions">
         <%= f.button :submit, :class => 'btn-primary', :value => '保存' %>
         <%= submit_tag '取消', :type => :reset, :class => "btn" %>
