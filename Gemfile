@@ -68,6 +68,10 @@ group :development do
   #gem 'binding_of_caller'
 end
 
+group :production do
+  #gem 'unicorn'
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

@@ -14,6 +14,7 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require bootstrap
+//= require template
 
 //= require rich/base
 //= require plugins/jquery.metadata
