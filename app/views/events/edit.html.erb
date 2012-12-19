@@ -4,6 +4,15 @@
     <li class="active">活动基本信息</li>
 <% end %>
 
+<% content_for :javascripts do %>
+    <script type="text/javascript">
+        $(function () {
+            <%= render 'shared/regions.js', :resource => @event %>
+            <%= render 'form.js', :resource => @event %>
+        })
+    </script>
+<% end %>
+
 <ul class="nav nav-tabs" id="myTab">
   <li class="active"><a href="<%= edit_event_path @event %>">活动基本信息</a></li>
   <li><a href="<%= event_tickets_path @event %>">票务设定</a></li>

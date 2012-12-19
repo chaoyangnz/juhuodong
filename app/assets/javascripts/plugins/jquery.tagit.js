@@ -340,7 +340,9 @@
                 this._updateSingleTagsField(tags);
             } else {
                 var escapedValue = label.html();
-                tag.append('<input type="hidden" style="display:none;" value="' + escapedValue + '" name="' + this.options.itemName + '[' + this.options.fieldName + '][]" />');
+                //fix for rails parameter parsing
+                tag.append('<input type="hidden" style="display:none;" value="' + escapedValue + '" name="' + this.options.itemName + '[][' + this.options.fieldName + ']" />');
+                //tag.append('<input type="hidden" style="display:none;" value="' + escapedValue + '" name="' + this.options.itemName + '[' + this.options.fieldName + '][]" />');
             }
 
             this._trigger('onTagAdded', null, tag);

@@ -22,13 +22,13 @@ class Event < ActiveRecord::Base
   #------------------------------------------------------
   belongs_to :user
   belongs_to :host
-  has_many :tags, :as => :taggable
+  has_many :tags, :as => :taggable, :dependent => :destroy
   has_many :tickets
   has_many :fields, :as => :fieldable
 
   has_many :versions, :as => :versionable
 
-  accepts_nested_attributes_for :tickets
+  accepts_nested_attributes_for :tickets, :tags
 
   #-----------------------------------------------------
   # Mass assignments
@@ -37,7 +37,7 @@ class Event < ActiveRecord::Base
                   :size, :category, :host_id, :banner,
                   :detail, :seller_name, :seller_email, :seller_telephone,
                   :short_url, :site_url, :notice, :tag_names
-  attr_accessible :tickets_attributes
+  attr_accessible :tickets_attributes, :tags_attributes
 
   #-----------------------------------------------------
   # Validations
@@ -56,27 +56,9 @@ class Event < ActiveRecord::Base
   validates :seller_name, :presence => true
   validates :seller_telephone, :presence => true
 
-  def tag_names
-    @tag_names || tags.map {|tag| tag.name}.join(',')
-  end
-
-  def tag_names= tag_names
-    @tag_names = tag_names
-  end
-
   #-----------------------------------------------------
   # Lifecycle callbacks
   #-----------------------------------------------------
-  after_create :save_tags
-
-  def save_tags
-    unless @tag_names.empty?
-      @tag_names.split(",").each do |name|
-        self.tags.create(:name => name.lstrip.rstrip)
-      end
-    end
-  end
-
   # Business Logic
   class << self
     def create_draft_by_user event

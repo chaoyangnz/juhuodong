@@ -25,39 +25,7 @@
     <script type="text/javascript">
         $(function () {
             <%= render 'shared/regions.js', :resource => @event %>
-            // 标签控件
-            $('input.tags').tagit({
-//        availableTags: sampleTags,
-                // This will make Tag-it submit a single form value, as a comma-delimited field.
-                singleField:true//,
-//        singleFieldNode: $('input#tags')
-            });
-
-            // 地图选择地址
-//            var map = new BMap.Map("map_body");
-//            var gc = new BMap.Geocoder();
-//            $('#show_map').click(function() {
-//                var city = $('select[name="event[city]"]').val()
-//                city = city != '' ? city : (remote_ip_info ? remote_ip_info['city'] : '上海')
-//
-//                map.centerAndZoom(city,15);
-//            })
-//            map.addEventListener("click", function(e){
-//                var pt = e.point;
-//                map.clearOverlays()
-//                var marker = new BMap.Marker(pt);  // 创建标注
-//                map.addOverlay(marker);              // 将标注添加到地图中
-//
-//                gc.getLocation(pt, function(rs){
-//                    var addComp = rs.addressComponents;
-//
-//                    $("#map_address").html(/*addComp.province + ", " + addComp.city + ", " + */addComp.district + "" + addComp.street + "" + addComp.streetNumber);
-//                });
-//            });
-//            $('a#select_map').click(function() {
-//                $('input[name="event[address]"]').val($("#map_address").html())
-//                $('#map_window').modal('hide')
-//            })
+            <%= render 'form.js', :resource => @event %>
 
             /*---------------------票券设定---------------------------------*/
             $('#save_ticket_button').click(function () {
@@ -73,7 +41,6 @@
                     var index = $('#ticket_form').attr('for')
                     $('#ticket_table tbody tr:eq(' + index + ')').replaceWith($(row))
                 }
-
 
                 $('#ticket_form').hide()
                 $('#ticket_table').show()
