@@ -22,13 +22,13 @@ class Event < ActiveRecord::Base
   #------------------------------------------------------
   belongs_to :user
   belongs_to :host
-  has_many :tags, :as => :taggable, :dependent => :destroy
+  has_many :tags, :as => :taggable
   has_many :tickets
   has_many :fields, :as => :fieldable
 
   has_many :versions, :as => :versionable
 
-  accepts_nested_attributes_for :tickets, :tags
+  accepts_nested_attributes_for :tickets
 
   #-----------------------------------------------------
   # Mass assignments
@@ -38,7 +38,6 @@ class Event < ActiveRecord::Base
                   :detail, :seller_name, :seller_email, :seller_telephone,
                   :short_url, :site_url, :notice, :tag_names
   attr_accessible :tickets_attributes, :tags_attributes
-
   #-----------------------------------------------------
   # Validations
   #-----------------------------------------------------

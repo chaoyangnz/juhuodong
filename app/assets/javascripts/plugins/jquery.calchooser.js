@@ -304,19 +304,19 @@
          * @ignore
          */
         var _template = [
-            "<div class=\"cal-container\">",
-            "<dl>",
-            "<dt class=\"date\"></dt>",
-            "<dt><strong>\u65e5</strong></dt>",
-            "<dt>\u4e00</dt>",
-            "<dt>\u4e8c</dt>",
-            "<dt>\u4e09</dt>",
-            "<dt>\u56db</dt>",
-            "<dt>\u4e94</dt>",
-            "<dt><strong>\u516d</string></dt>",
-            "<dd></dd>",
-            "</dl>",
-            "</div>"
+            '<div class="cal-container">',
+            '<dl>',
+            '<dt class="date"></dt>',
+            '<dt><strong>\u65e5</strong></dt>',
+            '<dt>\u4e00</dt>',
+            '<dt>\u4e8c</dt>',
+            '<dt>\u4e09</dt>',
+            '<dt>\u56db</dt>',
+            '<dt>\u4e94</dt>',
+            '<dt><strong>\u516d</string></dt>',
+            '<dd></dd>',
+            '</dl>',
+            '</div>'
         ];
 
         var _templateTime = [
@@ -1234,7 +1234,8 @@
                 if(lzc.id(this.id).className != 'time-end'){
                     //alert(this.render(sDate))
                     //this.oDateInfo.innerHTML = this.rDate.test(sDate) ? (this.triggerNode.value = sDate.substring(2), this.render(sDate), this.getDateInfo(sDate)[this.isHoliday ? "holiday" : "week"]) : "";
-                    this.triggerNode.value = sDate.substring(2), this.render(sDate), this.getDateInfo(sDate)[this.isHoliday ? "holiday" : "week"];
+//                    this.triggerNode.value = sDate.substring(2),
+                    this.render(sDate), this.getDateInfo(sDate)[this.isHoliday ? "holiday" : "week"];
                 }
                 else
                 {
