@@ -44,13 +44,7 @@
 <% end %>
 
 
-<%= f.input :tag_names, :label => '标签', :help => '标签有利于百度、谷歌搜索，请以逗号(,)或空格分隔多个标签' do %>
-    <ul id="event_tags">
-      <% @event.tags.each do |tag| %>
-          <li><%= tag.name %></li>
-      <% end %>
-    </ul>
-<% end %>
+<%= f.input :tag_names, :label => '标签', :help => '标签有利于百度、谷歌搜索，请以逗号(,)或空格分隔多个标签' %>
 
 <%= f.input :banner, :label => '活动海报', :wrapper => 'append', :help => '优秀的活动海报可以聚集更多的人气' do %>
     <%= rich_picker_tag("event[banner]", @event.banner) %>

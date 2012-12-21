@@ -1,0 +1,307 @@
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+
+
+Started GET "/events/new" for 127.0.0.1 at 2012-12-21 15:19:11 +0800
+Processing by EventsController#new as HTML
+Completed 401 Unauthorized in 48ms
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2012-12-21 15:19:11 +0800
+Processing by Devise::SessionsController#new as HTML
+  Rendered users/sessions/new.html.erb within layouts/application (0.0ms)
+Completed 200 OK in 367ms (Views: 285.0ms | ActiveRecord: 66.0ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2012-12-21 15:19:14 +0800
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"user"=>{"email"=>"jock.yang@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (21.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`email` = 'jock.yang@gmail.com' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36m (28.0ms)[0m  [1mUPDATE `users` SET `last_sign_in_at` = '2012-12-20 06:52:04', `current_sign_in_at` = '2012-12-21 07:19:15', `sign_in_count` = 5, `updated_at` = '2012-12-21 07:19:15', `roles` = '---\n- :user\n' WHERE `users`.`id` = 1[0m
+  [1m[35m (59.0ms)[0m  COMMIT
+Redirected to https://localhost:3000/events/new
+Completed 302 Found in 524ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/events/new" for 127.0.0.1 at 2012-12-21 15:19:15 +0800
+Processing by EventsController#new as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+DEPRECATION WARNING: Calling set_inheritance_column is deprecated. Please use `self.inheritance_column = 'the_name'` instead. (called from <class:Ticket> at C:/Sites/juhuodong/app/models/ticket.rb:4)
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_new_html_erb__747236597_36501780 at C:/Sites/juhuodong/app/views/events/new.html.erb:27)
+  Rendered shared/_regions.js.erb (45.0ms)
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_new_html_erb__747236597_36501780 at C:/Sites/juhuodong/app/views/events/new.html.erb:28)
+  Rendered events/_form.js.erb (1.0ms)
+  [1m[35mHost Load (0.0ms)[0m  SELECT `hosts`.* FROM `hosts` WHERE `hosts`.`user_id` = 1
+  Rendered events/_form.html.erb (165.0ms)
+  Rendered events/tickets/_form.html.erb (25.0ms)
+  Rendered events/new.html.erb within layouts/application (318.0ms)
+Completed 200 OK in 863ms (Views: 350.0ms | ActiveRecord: 128.0ms)
+
+
+Started GET "/events" for 127.0.0.1 at 2012-12-21 15:20:20 +0800
+Processing by EventsController#index as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35m (35.0ms)[0m  SELECT COUNT(*) FROM `events` WHERE `events`.`user_id` = 1
+  [1m[36mEvent Load (10.0ms)[0m  [1mSELECT `events`.* FROM `events` WHERE `events`.`user_id` = 1 ORDER BY created_at desc[0m
+  Rendered events/index.html.erb within layouts/application (50.0ms)
+Completed 200 OK in 129ms (Views: 80.0ms | ActiveRecord: 45.0ms)
+
+
+Started GET "/events/4/edit" for 127.0.0.1 at 2012-12-21 15:20:24 +0800
+Processing by EventsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mEvent Load (1.0ms)[0m  [1mSELECT `events`.* FROM `events` WHERE `events`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:10)
+  Rendered shared/_regions.js.erb (10.0ms)
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:11)
+  Rendered events/_form.js.erb (0.0ms)
+  [1m[36mHost Load (0.0ms)[0m  [1mSELECT `hosts`.* FROM `hosts` WHERE `hosts`.`user_id` = 1[0m
+  [1m[35mTag Load (1.0ms)[0m  SELECT `tags`.* FROM `tags` WHERE `tags`.`taggable_id` = 4 AND `tags`.`taggable_type` = 'Event'
+  Rendered events/_form.html.erb (52.0ms)
+  Rendered events/edit.html.erb within layouts/application (75.0ms)
+Completed 200 OK in 240ms (Views: 106.0ms | ActiveRecord: 9.0ms)
+
+
+Started GET "/events/4/edit" for 127.0.0.1 at 2012-12-21 15:35:07 +0800
+Processing by EventsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mEvent Load (1.0ms)[0m  SELECT `events`.* FROM `events` WHERE `events`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:10)
+  Rendered shared/_regions.js.erb (11.0ms)
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:11)
+  Rendered events/_form.js.erb (0.0ms)
+  [1m[35mHost Load (0.0ms)[0m  SELECT `hosts`.* FROM `hosts` WHERE `hosts`.`user_id` = 1
+  [1m[36mTag Load (0.0ms)[0m  [1mSELECT `tags`.* FROM `tags` WHERE `tags`.`taggable_id` = 4 AND `tags`.`taggable_type` = 'Event'[0m
+  Rendered events/_form.html.erb (41.0ms)
+  Rendered events/edit.html.erb within layouts/application (63.0ms)
+Completed 200 OK in 106ms (Views: 101.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/events/4/edit" for 127.0.0.1 at 2012-12-21 15:36:21 +0800
+Processing by EventsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mEvent Load (0.0ms)[0m  [1mSELECT `events`.* FROM `events` WHERE `events`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:10)
+  Rendered shared/_regions.js.erb (10.0ms)
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:11)
+  Rendered events/_form.js.erb (0.0ms)
+  [1m[36mHost Load (0.0ms)[0m  [1mSELECT `hosts`.* FROM `hosts` WHERE `hosts`.`user_id` = 1[0m
+  [1m[35mTag Load (1.0ms)[0m  SELECT `tags`.* FROM `tags` WHERE `tags`.`taggable_id` = 4 AND `tags`.`taggable_type` = 'Event'
+  Rendered events/_form.html.erb (42.0ms)
+  Rendered events/edit.html.erb within layouts/application (64.0ms)
+Completed 200 OK in 142ms (Views: 137.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/events/4/edit" for 127.0.0.1 at 2012-12-21 15:45:22 +0800
+Processing by EventsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mEvent Load (0.0ms)[0m  SELECT `events`.* FROM `events` WHERE `events`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:10)
+  Rendered shared/_regions.js.erb (10.0ms)
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:11)
+  Rendered events/_form.js.erb (0.0ms)
+  [1m[35mHost Load (1.0ms)[0m  SELECT `hosts`.* FROM `hosts` WHERE `hosts`.`user_id` = 1
+  [1m[36mTag Load (0.0ms)[0m  [1mSELECT `tags`.* FROM `tags` WHERE `tags`.`taggable_id` = 4 AND `tags`.`taggable_type` = 'Event'[0m
+  Rendered events/_form.html.erb (40.0ms)
+  Rendered events/edit.html.erb within layouts/application (61.0ms)
+Completed 200 OK in 145ms (Views: 138.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/events/4/edit" for 127.0.0.1 at 2012-12-21 15:45:25 +0800
+Processing by EventsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mEvent Load (0.0ms)[0m  [1mSELECT `events`.* FROM `events` WHERE `events`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:10)
+  Rendered shared/_regions.js.erb (11.0ms)
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:11)
+  Rendered events/_form.js.erb (0.0ms)
+  [1m[36mHost Load (0.0ms)[0m  [1mSELECT `hosts`.* FROM `hosts` WHERE `hosts`.`user_id` = 1[0m
+  [1m[35mTag Load (0.0ms)[0m  SELECT `tags`.* FROM `tags` WHERE `tags`.`taggable_id` = 4 AND `tags`.`taggable_type` = 'Event'
+  Rendered events/_form.html.erb (41.0ms)
+  Rendered events/edit.html.erb within layouts/application (65.0ms)
+Completed 200 OK in 149ms (Views: 144.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/events/4/edit" for 127.0.0.1 at 2012-12-21 15:50:39 +0800
+Processing by EventsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mEvent Load (0.0ms)[0m  SELECT `events`.* FROM `events` WHERE `events`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:10)
+  Rendered shared/_regions.js.erb (10.0ms)
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:11)
+  Rendered events/_form.js.erb (0.0ms)
+  [1m[35mHost Load (0.0ms)[0m  SELECT `hosts`.* FROM `hosts` WHERE `hosts`.`user_id` = 1
+  [1m[36mTag Load (0.0ms)[0m  [1mSELECT `tags`.* FROM `tags` WHERE `tags`.`taggable_id` = 4 AND `tags`.`taggable_type` = 'Event'[0m
+  Rendered events/_form.html.erb (40.0ms)
+  Rendered events/edit.html.erb within layouts/application (62.0ms)
+Completed 200 OK in 141ms (Views: 137.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/events/4/edit" for 127.0.0.1 at 2012-12-21 15:51:44 +0800
+Processing by EventsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mEvent Load (0.0ms)[0m  [1mSELECT `events`.* FROM `events` WHERE `events`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:10)
+  Rendered shared/_regions.js.erb (11.0ms)
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:11)
+  Rendered events/_form.js.erb (0.0ms)
+  [1m[36mHost Load (0.0ms)[0m  [1mSELECT `hosts`.* FROM `hosts` WHERE `hosts`.`user_id` = 1[0m
+  [1m[35mTag Load (0.0ms)[0m  SELECT `tags`.* FROM `tags` WHERE `tags`.`taggable_id` = 4 AND `tags`.`taggable_type` = 'Event'
+  Rendered events/_form.html.erb (77.0ms)
+  Rendered events/edit.html.erb within layouts/application (99.0ms)
+Completed 200 OK in 145ms (Views: 140.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/events/4/edit" for 127.0.0.1 at 2012-12-21 16:04:59 +0800
+Processing by EventsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mEvent Load (0.0ms)[0m  SELECT `events`.* FROM `events` WHERE `events`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:10)
+  Rendered shared/_regions.js.erb (51.0ms)
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:11)
+  Rendered events/_form.js.erb (0.0ms)
+  [1m[35mHost Load (0.0ms)[0m  SELECT `hosts`.* FROM `hosts` WHERE `hosts`.`user_id` = 1
+  [1m[36mTag Load (0.0ms)[0m  [1mSELECT `tags`.* FROM `tags` WHERE `tags`.`taggable_id` = 4 AND `tags`.`taggable_type` = 'Event'[0m
+  Rendered events/_form.html.erb (114.0ms)
+  Rendered events/edit.html.erb within layouts/application (180.0ms)
+Completed 200 OK in 382ms (Views: 227.0ms | ActiveRecord: 74.0ms)
+
+
+Started PUT "/events/4" for 127.0.0.1 at 2012-12-21 16:05:26 +0800
+Processing by EventsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"5suT9kdlhfPj5pKwjJ7A/KSoiUho65YpRIJB2DRGxNM=", "event"=>{"name"=>"的负担", "start_time"=>"2012-12-13 18:55", "end_time"=>"2012-12-15 18:55", "province"=>"上海", "city"=>"卢湾", "address"=>"地方", "size"=>"50", "category"=>"聚会/派对", "host_id"=>"1", "tag_names"=>"1,2", "banner"=>"/system/rich/rich_files/rich_files/000/000/001/thumb/z-bild.jpg", "detail"=>"<p>\r\n\t的负担</p>\r\n", "seller_name"=>"杨超", "seller_telephone"=>"13585621135", "seller_email"=>"", "short_url"=>"", "site_url"=>"", "notice"=>""}, "action_publish"=>"保存并发布", "id"=>"4"}
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mEvent Load (0.0ms)[0m  [1mSELECT `events`.* FROM `events` WHERE `events`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mTag Load (15.0ms)[0m  SELECT `tags`.* FROM `tags` WHERE `tags`.`taggable_id` = 4 AND `tags`.`taggable_type` = 'Event'
+  [1m[36mSQL (39.0ms)[0m  [1mDELETE FROM `tags` WHERE `tags`.`id` = 24[0m
+  [1m[35m (62.0ms)[0m  ROLLBACK
+Completed 500 Internal Server Error in 127ms
+
+NoMethodError (undefined method `each' for "1,2":String):
+  app/models/event.rb:74:in `save_tags'
+  app/controllers/events_controller.rb:62:in `update'
+
+
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (2.0ms)
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.0ms)
+  Rendered C:/RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/actionpack-3.2.8/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (58.0ms)
+
+
+Started GET "/events/4/edit" for 127.0.0.1 at 2012-12-21 16:06:10 +0800
+Processing by EventsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mEvent Load (0.0ms)[0m  SELECT `events`.* FROM `events` WHERE `events`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:10)
+  Rendered shared/_regions.js.erb (10.0ms)
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:11)
+  Rendered events/_form.js.erb (0.0ms)
+  [1m[35mHost Load (0.0ms)[0m  SELECT `hosts`.* FROM `hosts` WHERE `hosts`.`user_id` = 1
+  [1m[36mTag Load (0.0ms)[0m  [1mSELECT `tags`.* FROM `tags` WHERE `tags`.`taggable_id` = 4 AND `tags`.`taggable_type` = 'Event'[0m
+  Rendered events/_form.html.erb (90.0ms)
+  Rendered events/edit.html.erb within layouts/application (114.0ms)
+Completed 200 OK in 324ms (Views: 184.0ms | ActiveRecord: 23.0ms)
+
+
+Started PUT "/events/4" for 127.0.0.1 at 2012-12-21 16:06:15 +0800
+Processing by EventsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"5suT9kdlhfPj5pKwjJ7A/KSoiUho65YpRIJB2DRGxNM=", "event"=>{"name"=>"的负担", "start_time"=>"2012-12-13 18:55", "end_time"=>"2012-12-15 18:55", "province"=>"上海", "city"=>"卢湾", "address"=>"地方", "size"=>"50", "category"=>"聚会/派对", "host_id"=>"1", "tag_names"=>"1,2", "banner"=>"/system/rich/rich_files/rich_files/000/000/001/thumb/z-bild.jpg", "detail"=>"<p>\r\n\t的负担</p>\r\n", "seller_name"=>"杨超", "seller_telephone"=>"13585621135", "seller_email"=>"", "short_url"=>"", "site_url"=>"", "notice"=>""}, "action_publish"=>"保存并发布", "id"=>"4"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mEvent Load (0.0ms)[0m  [1mSELECT `events`.* FROM `events` WHERE `events`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mTag Load (9.0ms)[0m  SELECT `tags`.* FROM `tags` WHERE `tags`.`taggable_id` = 4 AND `tags`.`taggable_type` = 'Event'
+  [1m[36mSQL (3.0ms)[0m  [1mDELETE FROM `tags` WHERE `tags`.`id` = 24[0m
+  [1m[35mSQL (46.0ms)[0m  INSERT INTO `tags` (`name`, `taggable_id`, `taggable_type`) VALUES ('1,2', 4, 'Event')
+  [1m[36m (30.0ms)[0m  [1mCOMMIT[0m
+Redirected to https://localhost:3000/events
+Completed 302 Found in 101ms (ActiveRecord: 88.0ms)
+
+
+Started GET "/events" for 127.0.0.1 at 2012-12-21 16:06:15 +0800
+Processing by EventsController#index as HTML
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM `events` WHERE `events`.`user_id` = 1[0m
+  [1m[35mEvent Load (0.0ms)[0m  SELECT `events`.* FROM `events` WHERE `events`.`user_id` = 1 ORDER BY created_at desc
+  Rendered events/index.html.erb within layouts/application (4.0ms)
+Completed 200 OK in 46ms (Views: 43.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/events/4/edit" for 127.0.0.1 at 2012-12-21 16:06:17 +0800
+Processing by EventsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mEvent Load (0.0ms)[0m  SELECT `events`.* FROM `events` WHERE `events`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:10)
+  Rendered shared/_regions.js.erb (11.0ms)
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:11)
+  Rendered events/_form.js.erb (0.0ms)
+  [1m[35mHost Load (1.0ms)[0m  SELECT `hosts`.* FROM `hosts` WHERE `hosts`.`user_id` = 1
+  [1m[36mTag Load (0.0ms)[0m  [1mSELECT `tags`.* FROM `tags` WHERE `tags`.`taggable_id` = 4 AND `tags`.`taggable_type` = 'Event'[0m
+  Rendered events/_form.html.erb (40.0ms)
+  Rendered events/edit.html.erb within layouts/application (62.0ms)
+Completed 200 OK in 105ms (Views: 99.0ms | ActiveRecord: 2.0ms)
+
+
+Started PUT "/events/4" for 127.0.0.1 at 2012-12-21 16:07:38 +0800
+Processing by EventsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"5suT9kdlhfPj5pKwjJ7A/KSoiUho65YpRIJB2DRGxNM=", "event"=>{"name"=>"的负担", "start_time"=>"2012-12-13 18:55", "end_time"=>"2012-12-15 18:55", "province"=>"上海", "city"=>"卢湾", "address"=>"地方", "size"=>"50", "category"=>"聚会/派对", "host_id"=>"1", "tag_names"=>"1,2,dgggggggggg", "banner"=>"/system/rich/rich_files/rich_files/000/000/001/thumb/z-bild.jpg", "detail"=>"<p>\r\n\t的负担</p>\r\n", "seller_name"=>"杨超", "seller_telephone"=>"13585621135", "seller_email"=>"", "short_url"=>"", "site_url"=>"", "notice"=>""}, "action_publish"=>"保存并发布", "id"=>"4"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mEvent Load (1.0ms)[0m  [1mSELECT `events`.* FROM `events` WHERE `events`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mBEGIN[0m
+  [1m[35mTag Load (0.0ms)[0m  SELECT `tags`.* FROM `tags` WHERE `tags`.`taggable_id` = 4 AND `tags`.`taggable_type` = 'Event'
+  [1m[36mSQL (12.0ms)[0m  [1mDELETE FROM `tags` WHERE `tags`.`id` = 25[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO `tags` (`name`, `taggable_id`, `taggable_type`) VALUES ('1', 4, 'Event')
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO `tags` (`name`, `taggable_id`, `taggable_type`) VALUES ('2', 4, 'Event')[0m
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO `tags` (`name`, `taggable_id`, `taggable_type`) VALUES ('dgggggggggg', 4, 'Event')
+  [1m[36m (47.0ms)[0m  [1mCOMMIT[0m
+Redirected to https://localhost:3000/events
+Completed 302 Found in 209ms (ActiveRecord: 108.0ms)
+
+
+Started GET "/events" for 127.0.0.1 at 2012-12-21 16:07:39 +0800
+Processing by EventsController#index as HTML
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mSELECT COUNT(*) FROM `events` WHERE `events`.`user_id` = 1[0m
+  [1m[35mEvent Load (0.0ms)[0m  SELECT `events`.* FROM `events` WHERE `events`.`user_id` = 1 ORDER BY created_at desc
+  Rendered events/index.html.erb within layouts/application (5.0ms)
+Completed 200 OK in 49ms (Views: 47.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/events/4/edit" for 127.0.0.1 at 2012-12-21 16:07:41 +0800
+Processing by EventsController#edit as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mEvent Load (0.0ms)[0m  SELECT `events`.* FROM `events` WHERE `events`.`id` = 4 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:10)
+  Rendered shared/_regions.js.erb (10.0ms)
+DEPRECATION WARNING: Passing the format in the template name is deprecated. Please pass render with :formats => [:js] instead. (called from block in _app_views_events_edit_html_erb__973218783_33692160 at C:/Sites/juhuodong/app/views/events/edit.html.erb:11)
+  Rendered events/_form.js.erb (0.0ms)
+  [1m[35mHost Load (0.0ms)[0m  SELECT `hosts`.* FROM `hosts` WHERE `hosts`.`user_id` = 1
+  [1m[36mTag Load (0.0ms)[0m  [1mSELECT `tags`.* FROM `tags` WHERE `tags`.`taggable_id` = 4 AND `tags`.`taggable_type` = 'Event'[0m
+  Rendered events/_form.html.erb (73.0ms)
+  Rendered events/edit.html.erb within layouts/application (132.0ms)
+Completed 200 OK in 210ms (Views: 200.0ms | ActiveRecord: 6.0ms)
