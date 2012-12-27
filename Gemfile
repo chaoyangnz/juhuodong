@@ -1,7 +1,7 @@
 source 'http://ruby.taobao.org'
 #source 'http://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -24,6 +24,9 @@ end
 
 gem 'jquery-rails'
 
+# Tags
+gem 'acts-as-taggable-on', '~> 2.3.1'
+
 # 上传
 gem 'paperclip'
 
@@ -44,18 +47,9 @@ gem 'devise-i18n'
 
 # 权限
 gem 'declarative_authorization'
-#gem 'cancan'
-
-# 审批
-#gem 'acts_as_approvable'
-
-# 状态机、版本
-gem 'state_machine'
-gem 'state_machine-audit_trail'
 
 # form builder
 gem 'simple_form', '~> 2.0.0'
-#gem 'formtastic'
 
 # 异步任务与定时
 gem 'resque'
@@ -64,12 +58,16 @@ gem 'resque-scheduler', :require => 'resque_scheduler'
 
 group :development do
   gem 'quiet_assets'
-  #gem 'better_errors'
-  #gem 'binding_of_caller'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :production do
-  #gem 'unicorn'
+  gem 'unicorn'
+end
+
+group :test do
+
 end
 
 # To use ActiveModel has_secure_password
